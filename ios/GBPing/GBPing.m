@@ -515,7 +515,9 @@ static NSTimeInterval const kDefaultTimeout =           2.0;
                 packet = [self pingPacketWithType:kICMPv6TypeEchoRequest payload:payload requiresChecksum:NO];
             } break;
             default: {
-                assert(NO);
+                printf("host address family is not supported, cannot send ping (GBPing)\n");
+                // assert(NO);
+                return;
             } break;
         }
 
