@@ -749,8 +749,11 @@ static uint16_t in_cksum(const void *buffer, size_t bufferLen)
     result = NSNotFound;
     if ([packet length] >= (sizeof(IPHeader) + sizeof(ICMPHeader))) {
         ipPtr = (const IPHeader *)[packet bytes];
-        assert((ipPtr->versionAndHeaderLength & 0xF0) == 0x40);     // IPv4
-        assert(ipPtr->protocol == 1);                               // ICMP
+        //assert((ipPtr->versionAndHeaderLength & 0xF0) == 0x40);     // IPv4
+        //assert(ipPtr->protocol == 1);                               // ICMP
+        // don't asset
+        if (!(ipPtr->versionAndHeaderLength & 0xF0) == 0x40)) printf("caution, ipv4 header issue in GBPing.m\n");
+        if (!(ipPtr->protocol == 1)) printf("caution, protocol not 1 in GBPing.m\n");
         ipHeaderLength = (ipPtr->versionAndHeaderLength & 0x0F) * sizeof(uint32_t);
         if ([packet length] >= (ipHeaderLength + sizeof(ICMPHeader))) {
             result = ipHeaderLength;
